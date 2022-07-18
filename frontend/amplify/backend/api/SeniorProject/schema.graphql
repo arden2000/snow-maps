@@ -1,0 +1,14 @@
+type SkiLocations @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+}
+
+type UserImages @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  username: AWSEmail
+  location: ID
+  SkiLocations: SkiLocations @hasOne
+  date_time: AWSDateTime
+  image_url: AWSURL
+}
+ 

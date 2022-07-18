@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Big Bear Mountain Resort",
+    "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Above_Gotham.jpg/240px-Above_Gotham.jpg",
+    "latitude": 34.2267,
+    "longitude": -116.8602,
+    "website": "https://www.bigbearmountainresort.com/"
+  },
+  {
+    "name": "Palisades",
+    "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Above_Gotham.jpg/240px-Above_Gotham.jpg",
+    "latitude": 39.1906,
+    "longitude": -120.2484,
+    "website": "https://www.palisadestahoe.com/"
+  }
+]
