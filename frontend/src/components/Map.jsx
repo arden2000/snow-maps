@@ -1,29 +1,47 @@
 import {
   Marker,
-  Popup,
   NavigationControl,
   FullscreenControl,
   ScaleControl,
   GeolocateControl,
-  useMap,
 } from "react-map-gl";
 import { MapView } from "@aws-amplify/ui-react";
-import { useState, useMemo, useRef } from "react";
-import RESORTS from "../RESORTS.json";
-import { getResortsData, uploadResortsData, getUser } from "../aws-funcs.js";
+import { useState, useRef, forwardRef } from "react";
+import { getResortsData } from "../aws-funcs.js";
 import CircularProgress from "@mui/material/CircularProgress";
-import MapPopup from "./MapPopup.jsx";
+import ResortRodal from "./ResortRodal.jsx";
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
+import { getImageURLs } from "../aws-funcs.js";
+import Upload from "./Upload.jsx";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import Zoom from "@mui/material/Zoom";
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Zoom ref={ref} {...props} />;
+});
 
 function Map() {
   const mapRef = useRef();
   const [popupInfo, setPopupInfo] = useState(null);
   const [resortInfo, setResortInfo] = useState(null);
+  const [imageURLs, setImageURLs] = useState([]);
 
   if (resortInfo === null || resortInfo === undefined) {
     getResortsData().then((result) => {
       setResortInfo(result);
     });
   }
+
+  const handleGetList = (directory) => {
+    getImageURLs(directory).then((urls) => {
+      setImageURLs(urls);
+      console.log(urls);
+    });
+  };
 
   if (resortInfo === null || resortInfo === undefined) {
     return <CircularProgress></CircularProgress>;
@@ -54,12 +72,62 @@ function Map() {
                 e.originalEvent.stopPropagation();
                 setPopupInfo(resort);
               }}
-            ></Marker>
+            />
           ))}
-
-          {popupInfo && (
-            <MapPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
-          )}
+          <Dialog
+            open={popupInfo != null}
+            onClose={() => {
+              setPopupInfo(null);
+              setImageURLs([]);
+            }}
+            maxWidth="xs"
+            scroll="paper"
+            TransitionComponent={Transition}
+          >
+            {popupInfo && (
+              <Box>
+                <div>
+                  {popupInfo.name} |{" "}
+                  <a target="_new" href={`${popupInfo.website}`}>
+                    Site
+                  </a>
+                </div>
+                <img src={popupInfo.image} height={100} width={100} />
+                <Button onClick={() => handleGetList(popupInfo.name)}>
+                  get list
+                </Button>
+                {imageURLs.map((url) => (
+                  <img key={url} src={url} height={100} width={100} />
+                ))}
+                <Upload location={popupInfo.name} />
+              </Box>
+            )}
+          </Dialog>
+          {/* <Rodal
+            visible={popupInfo != null}
+            onClose={() => setPopupInfo(null)}
+            height={500}
+            animation="door"
+          >
+            {popupInfo && (
+              <>
+                <div>
+                  {popupInfo.name} |{" "}
+                  <a target="_new" href={`${popupInfo.website}`}>
+                    Site
+                  </a>
+                </div>
+                <img width="100%" src={popupInfo.image} />
+                <Button onClick={() => handleGetList(popupInfo.name)}>
+                  get list
+                </Button>
+                {imageURLs.map((url) => (
+                  <img key={url} src={url} height={100} width={100} />
+                ))}
+                <Upload location={popupInfo.name} />
+              </>
+            )}
+          </Rodal> */}
         </MapView>
       </div>
     );

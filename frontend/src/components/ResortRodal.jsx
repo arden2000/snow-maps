@@ -4,9 +4,8 @@ import { getImageURLs } from "../aws-funcs.js";
 import Upload from "./Upload.jsx";
 import Button from "@mui/material/Button";
 
-function MapPopup({ popupInfo, setPopupInfo }) {
+function ResortRodal({ popupInfo, setPopupInfo }) {
   const { current: map } = useMap();
-  const [imageList, setImageList] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
 
   const handleGetList = (directory) => {
@@ -15,11 +14,10 @@ function MapPopup({ popupInfo, setPopupInfo }) {
       console.log(urls);
     });
   };
+  console.log(popupInfo)
+
   return (
-    <Popup
-      anchor="center"
-      longitude={map.getCenter().lng}
-      latitude={map.getCenter().lat}
+    <ResortRodal
       onClose={() => {
         setPopupInfo(null);
         setImageURLs([]);
@@ -37,8 +35,8 @@ function MapPopup({ popupInfo, setPopupInfo }) {
         <img key={url} src={url} height={100} width={100} />
       ))}
       <Upload location={popupInfo.name} />
-    </Popup>
+    </ResortRodal>
   );
 }
 
-export default MapPopup;
+export default ResortRodal;
