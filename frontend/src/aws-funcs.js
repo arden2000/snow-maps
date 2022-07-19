@@ -12,17 +12,39 @@ async function uploadImage(directory, file) {
 }
 
 async function downloadImage(filename) {
-    const signedURL = await Storage.get(filename, {
-        level: 'private',
-    });
-    console.log(signedURL)
+    try {
+        const signedURL = await Storage.get(filename, {
+            level: 'private',
+        });
+        console.log(signedURL)
+        return signedURL
+    }
+    catch (err) { console.log(err) }
 }
+
+
 
 async function getList(directory) {
     try {
         const list = await Storage.list(directory + '/', { level: 'private' }) // for listing ALL files without prefix, pass '' instead
         console.log(list)
         return list
+    }
+    catch (err) { console.log(err) }
+}
+
+async function getImageURLs(directory){
+    try {
+        const list = await Storage.list(directory + '/', { level: 'private' }) // for listing ALL files without prefix, pass '' instead
+        console.log(list)
+        const urls = []
+        for (const file of list){
+            let url = await downloadImage(file.key)
+            urls.push(url)
+        }
+        console.log(urls)
+        return urls
+
     }
     catch (err) { console.log(err) }
 }
@@ -44,4 +66,4 @@ async function signOut(navigate) {
         console.log('error signing out: ', error);
     }
 }
-export { uploadImage, getList, downloadImage, getUser, signOut }
+export { uploadImage, getList, downloadImage, getUser, signOut, getImageURLs }
