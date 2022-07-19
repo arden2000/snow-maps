@@ -1,5 +1,7 @@
 import logo from "../logo.svg";
 import { useNavigate } from "react-router-dom";
+import { getResortsData, uploadResortsData, getUser } from "../aws-funcs.js";
+
 function Home() {
   const navigate = useNavigate();
 
@@ -22,6 +24,8 @@ function Home() {
           Learn React
         </a>
         <button onClick={clickSignIn}>Sign In</button>
+        <button onClick={getResortsData}>get data</button>
+
       </header>
     </div>
   );

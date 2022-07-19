@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import awsconfig from './aws-exports';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Main from './components/Main.jsx'
+
 Amplify.configure(awsconfig);
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <Route
             exact
             path="/signin"
-            element={<SignIn/>} />
+            element={<SignIn />} />
           <Route
             exact
             path="/"
@@ -32,4 +33,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

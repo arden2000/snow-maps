@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Upload from "./Upload.jsx";
 import Map from "./Map.jsx";
-import { getList, getUser } from "../aws-funcs.js";
+import { getResortsData, uploadResortsData, getUser } from "../aws-funcs.js";
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Navbar from "./Navbar.jsx";
 
-function Main() {
+function Main({resortInfo}) {
   const [user, setUser] = useState(null);
   if (user === null) {
     getUser().then((result) => {
@@ -23,6 +23,9 @@ function Main() {
     return (
       <div className="Home">
         <Navbar></Navbar>
+        <button onClick={uploadResortsData}>upload data</button>
+        <button onClick={getResortsData}>get data</button>
+
         <Map></Map>
       </div>
     );

@@ -22,7 +22,7 @@ function FileInput({directory}) {
   return (
     <Box fill align="center" justify="start" pad="large">
       <Box width="medium">
-        <Form validate="submit" onSubmit={(event) => uploadFiles(event.value.fileInput)}>
+        <Form validate="submit" onSubmit={(event) => {uploadFiles(event.value.fileInput); event.value.fileInput = []}}>
           <FormField name="fileInput" htmlFor="fileInput" required>
             <GrommetFileInput
               name="fileInput"

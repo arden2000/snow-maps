@@ -4,9 +4,8 @@ import { schema } from './schema';
 
 
 
-const { SkiLocations, UserImages } = initSchema(schema);
+const { SkiResorts } = initSchema(schema);
 
 export {
-  SkiLocations,
-  UserImages
+  SkiResorts
 };

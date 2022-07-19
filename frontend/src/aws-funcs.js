@@ -1,5 +1,31 @@
 import { Storage } from "@aws-amplify/storage"
 import { Auth } from 'aws-amplify';
+import { DataStore } from '@aws-amplify/datastore';
+import { SkiResorts } from './models';
+
+async function uploadResortsData() {
+    try {
+        await DataStore.save(
+            new SkiResorts({
+                "name": "Palisades",
+                "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Above_Gotham.jpg/240px-Above_Gotham.jpg",
+                "latitude": 39.1906,
+                "longitude": -120.2484,
+                "website": "https://www.palisadestahoe.com/"
+            })
+        );
+    }
+    catch (err) { console.log(err) }
+}
+
+async function getResortsData() {
+    try {
+        const models = await DataStore.query(SkiResorts);
+        console.log(models);
+        return models
+    }
+    catch (err) { console.log(err) }
+}
 
 async function uploadImage(directory, file) {
     console.log("Uploading " + directory + "/" + file.name)
@@ -22,8 +48,6 @@ async function downloadImage(filename) {
     catch (err) { console.log(err) }
 }
 
-
-
 async function getList(directory) {
     try {
         const list = await Storage.list(directory + '/', { level: 'private' }) // for listing ALL files without prefix, pass '' instead
@@ -33,12 +57,12 @@ async function getList(directory) {
     catch (err) { console.log(err) }
 }
 
-async function getImageURLs(directory){
+async function getImageURLs(directory) {
     try {
         const list = await Storage.list(directory + '/', { level: 'private' }) // for listing ALL files without prefix, pass '' instead
         console.log(list)
         const urls = []
-        for (const file of list){
+        for (const file of list) {
             let url = await downloadImage(file.key)
             urls.push(url)
         }
@@ -66,4 +90,4 @@ async function signOut(navigate) {
         console.log('error signing out: ', error);
     }
 }
-export { uploadImage, getList, downloadImage, getUser, signOut, getImageURLs }
+export { uploadImage, getList, downloadImage, getUser, signOut, getImageURLs, uploadResortsData, getResortsData }

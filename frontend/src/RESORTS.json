@@ -12,5 +12,12 @@
     "latitude": 39.1906,
     "longitude": -120.2484,
     "website": "https://www.palisadestahoe.com/"
+  },
+  {
+    "name": "Steamboat",
+    "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Above_Gotham.jpg/240px-Above_Gotham.jpg",
+    "latitude": 40.4572,
+    "longitude": -106.8045,
+    "website": "https://www.steamboat.com/the-mountain"
   }
 ]

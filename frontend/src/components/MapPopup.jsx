@@ -1,27 +1,19 @@
 import { Popup, useMap } from "react-map-gl";
 import { useState, useEffect } from "react";
-import { getList, downloadImage, getImageURLs } from "../aws-funcs.js";
+import { getImageURLs } from "../aws-funcs.js";
 import Upload from "./Upload.jsx";
 import Button from "@mui/material/Button";
 
 function MapPopup({ popupInfo, setPopupInfo }) {
   const { current: map } = useMap();
   const [imageList, setImageList] = useState([]);
-  const [imageURL, setImageURL] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
 
   const handleGetList = (directory) => {
-    // getList(directory).then((files) => {
-    //   const fileNames = files.map((file) => file.key);
-    //   setImageList(fileNames);
-    //   console.log(imageList);
-    // });
-    // for (let i = 0; i < imageList.length; i++) {
-    //   downloadImage(imageList[i]).then((url) => {
-    //     setImageURL([...imageURL, url]);
-    //     console.log(imageURL);
-    //   });
-    // }
-    getImageURLs(directory).then((urls) => {setImageURL(urls); console.log(urls)})
+    getImageURLs(directory).then((urls) => {
+      setImageURLs(urls);
+      console.log(urls);
+    });
   };
   return (
     <Popup
@@ -30,12 +22,7 @@ function MapPopup({ popupInfo, setPopupInfo }) {
       latitude={map.getCenter().lat}
       onClose={() => {
         setPopupInfo(null);
-        setImageList([]);
-        setImageURL([]);
-      }}
-      onOpen={() => {
-        setImageList([]);
-        setImageURL([]);
+        setImageURLs([]);
       }}
     >
       <div>
@@ -46,12 +33,7 @@ function MapPopup({ popupInfo, setPopupInfo }) {
       </div>
       <img width="100%" src={popupInfo.image} />
       <Button onClick={() => handleGetList(popupInfo.name)}>get list</Button>
-      {/* {imageList.map((imageName) => (
-        <Button key={imageName} onClick={() => downloadImage(imageName)}>
-          {imageName}
-        </Button>
-      ))} */}
-      {imageURL.map((url) => (
+      {imageURLs.map((url) => (
         <img key={url} src={url} height={100} width={100} />
       ))}
       <Upload location={popupInfo.name} />

@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "SkiLocations": {
-            "name": "SkiLocations",
+        "SkiResorts": {
+            "name": "SkiResorts",
             "fields": {
                 "id": {
                     "name": "id",
@@ -17,95 +17,29 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "createdAt": {
-                    "name": "createdAt",
+                "image": {
+                    "name": "image",
                     "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "SkiLocations",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "UserImages": {
-            "name": "UserImages",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "username": {
-                    "name": "username",
-                    "isArray": false,
-                    "type": "AWSEmail",
+                    "type": "AWSURL",
                     "isRequired": false,
                     "attributes": []
                 },
-                "location": {
-                    "name": "location",
+                "latitude": {
+                    "name": "latitude",
                     "isArray": false,
-                    "type": "ID",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
-                "SkiLocations": {
-                    "name": "SkiLocations",
+                "longitude": {
+                    "name": "longitude",
                     "isArray": false,
-                    "type": {
-                        "model": "SkiLocations"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id",
-                        "targetName": "userImagesSkiLocationsId"
-                    }
-                },
-                "date_time": {
-                    "name": "date_time",
-                    "isArray": false,
-                    "type": "AWSDateTime",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
-                "image_url": {
-                    "name": "image_url",
+                "website": {
+                    "name": "website",
                     "isArray": false,
                     "type": "AWSURL",
                     "isRequired": false,
@@ -126,17 +60,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "userImagesSkiLocationsId": {
-                    "name": "userImagesSkiLocationsId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
-            "pluralName": "UserImages",
+            "pluralName": "SkiResorts",
             "attributes": [
                 {
                     "type": "model",
@@ -163,5 +90,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "c310c635de560c4f9e61d469c474d072"
+    "version": "f778217f9d3ed3a1f8b1a034dbed9672"
 };
