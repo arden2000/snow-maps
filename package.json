@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mui/lab": "^5.0.0-alpha.91",
+    "@mui/material": "^5.9.1"
+  }
+}

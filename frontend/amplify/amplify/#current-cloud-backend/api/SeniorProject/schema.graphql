@@ -1,0 +1,9 @@
+type SkiResorts @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  image: AWSURL
+  latitude: Float
+  longitude: Float
+  website: AWSURL
+}
+ 
