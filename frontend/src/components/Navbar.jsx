@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
-import { getList, getUser, signOut } from "../aws-funcs.js";
+import { signOut } from "../aws-funcs.js";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Navbar = () => {
   ];
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" top={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

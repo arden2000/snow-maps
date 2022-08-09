@@ -3,21 +3,6 @@ import { Auth } from 'aws-amplify';
 import { DataStore } from '@aws-amplify/datastore';
 import { SkiResorts } from './models';
 
-async function uploadResortsData() {
-    try {
-        await DataStore.save(
-            new SkiResorts({
-                "name": "Palisades",
-                "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Above_Gotham.jpg/240px-Above_Gotham.jpg",
-                "latitude": 39.1906,
-                "longitude": -120.2484,
-                "website": "https://www.palisadestahoe.com/"
-            })
-        );
-    }
-    catch (err) { console.log(err) }
-}
-
 async function getResortsData() {
     try {
         const models = await DataStore.query(SkiResorts);
@@ -64,7 +49,7 @@ async function getImageURLs(directory) {
         const urls = []
         for (const file of list) {
             let url = await downloadImage(file.key)
-            urls.push(url)
+            urls.push({ url: url, key: file.key })
         }
         console.log(urls)
         return urls
@@ -85,9 +70,9 @@ async function getUser() {
 async function signOut(navigate) {
     try {
         await Auth.signOut();
-        navigate('/')
+        navigate('/signin')
     } catch (error) {
         console.log('error signing out: ', error);
     }
 }
-export { uploadImage, getList, downloadImage, getUser, signOut, getImageURLs, uploadResortsData, getResortsData }
+export { uploadImage, getList, downloadImage, getUser, signOut, getImageURLs, getResortsData }

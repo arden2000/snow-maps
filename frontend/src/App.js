@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify, Auth } from 'aws-amplify';
 import Home from './components/Home.jsx';
@@ -26,7 +25,7 @@ function App() {
             element={<Home />} />
           <Route
             exact
-            path="/main"
+            path="/map"
             element={<Main />} />
         </Routes>
       </BrowserRouter>

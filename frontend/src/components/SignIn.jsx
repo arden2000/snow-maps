@@ -13,7 +13,7 @@ function SignIn() {
       <Authenticator>
         {() => (
           <main>
-            {navigate("/main")}
+            {navigate("/map")}
           </main>
         )}
       </Authenticator>
