@@ -70,7 +70,7 @@ async function getUser() {
 async function signOut(navigate) {
     try {
         await Auth.signOut();
-        navigate('/signin')
+        navigate('/home')
     } catch (error) {
         console.log('error signing out: ', error);
     }

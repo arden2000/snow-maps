@@ -1,37 +1,55 @@
 import logo from "../logo.svg";
 import { useNavigate } from "react-router-dom";
 import { getResortsData, uploadResortsData, getUser } from "../aws-funcs.js";
-import DottedMap from "dotted-map";
 import Box from "@mui/material/Box";
-
+import Globe from "./Globe.jsx";
 import "./Home.css";
-function Home() {
-  const navigate = useNavigate();
-  const map = new DottedMap({ height: 60, grid: "diagonal" });
-  const svgMap = map.getSVG({
-    radius: 0.15,
-    color: "white",
-    shape: "circle",
-    // backgroundColor: "white"
-  });
+import Dialog from "@mui/material/Dialog";
+import SignIn from "./SignIn.jsx";
+import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
-  const clickSignIn = () => {
-    navigate("/signin");
-  };
+function Home() {
+  const [clickSignIn, setClickSignIn] = useState(false);
+  const navigate = useNavigate();
+
+  // const clickSignIn = () => {
+  //   navigate("/signin");
+  // };
   return (
     <div className="Home">
       <div>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={clickSignIn}>Sign In</button>
-
+        <Globe />
+        <h2>Welcome</h2>
+        <button onClick={() => setClickSignIn(true)}>Sign In</button>
+        <Dialog
+          open={clickSignIn}
+          onClose={() => {
+            setClickSignIn(false);
+          }}
+          maxWidth="sm"
+          fullWidth={true}
+          scroll="paper"
+          PaperProps={{
+            style: {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+            },
+          }}
+          // TransitionComponent={Transition}
+        >
+          {/* <IconButton
+            style={{ alignSelf: "right" }}
+            onClick={() => {
+              setClickSignIn(false);
+            }}
+          >
+            <CloseIcon color="white"></CloseIcon>
+          </IconButton> */}
+          <SignIn />
+        </Dialog>
       </div>
-        <img width="600px"
-          src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
-          alt=""
-        />
     </div>
   );
 }

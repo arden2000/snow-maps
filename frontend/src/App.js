@@ -17,15 +17,11 @@ function App() {
         <Routes>
           <Route
             exact
-            path="/signin"
-            element={<SignIn />} />
-          <Route
-            exact
-            path="/"
+            path="/home"
             element={<Home />} />
           <Route
             exact
-            path="/map"
+            path="/"
             element={<Main />} />
         </Routes>
       </BrowserRouter>

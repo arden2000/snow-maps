@@ -18,10 +18,10 @@ function Main({resortInfo}) {
   if (user === null) {
     return <CircularProgress />;
   } else if (user === false) {
-    navigate("/signin");
+    navigate("/home");
   } else {
     return (
-      <div className="Home">
+      <div className="Main">
         <Navbar></Navbar>
         {/* <button onClick={getResortsData}>get data</button> */}
         <Map></Map>
