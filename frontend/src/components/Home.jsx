@@ -9,6 +9,7 @@ import SignIn from "./SignIn.jsx";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import Grid from '@mui/material/Grid';
 
 function Home() {
   const [clickSignIn, setClickSignIn] = useState(false);
@@ -19,27 +20,56 @@ function Home() {
   // };
   return (
     <div className="Home">
-      <div>
+      
+      <Box class="HomeBox" sx={{
+        width: 600,
+        height: 600,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        // backgroundColor: 'primary.dark',
+        // '&:hover': {
+        //   backgroundColor: 'primary.main',
+        //   opacity: [0.9, 0.8, 0.7],
+        // },
+      }}>
+        <h2>Website Title</h2>
         <Globe />
-        <h2>Welcome</h2>
+      </Box>
+      <Box class="HomeBox" sx={{
+        width: 600,
+        height: 600,
+        // backgroundColor: 'primary.dark',
+        // '&:hover': {
+        //   backgroundColor: 'primary.main',
+        //   opacity: [0.9, 0.8, 0.7],
+        // },
+      }}>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
         <button onClick={() => setClickSignIn(true)}>Sign In</button>
-        <Dialog
-          open={clickSignIn}
-          onClose={() => {
-            setClickSignIn(false);
-          }}
-          maxWidth="sm"
-          fullWidth={true}
-          scroll="paper"
-          PaperProps={{
-            style: {
-              backgroundColor: 'transparent',
-              boxShadow: 'none',
-            },
-          }}
-          // TransitionComponent={Transition}
-        >
-          {/* <IconButton
+      </Box>
+
+      <Dialog
+        open={clickSignIn}
+        onClose={() => {
+          setClickSignIn(false);
+        }}
+        maxWidth="sm"
+        fullWidth={true}
+        scroll="paper"
+        PaperProps={{
+          style: {
+            backgroundColor: "transparent",
+            boxShadow: "none",
+          },
+        }}
+        // TransitionComponent={Transition}
+      >
+        {/* <IconButton
             style={{ alignSelf: "right" }}
             onClick={() => {
               setClickSignIn(false);
@@ -47,9 +77,8 @@ function Home() {
           >
             <CloseIcon color="white"></CloseIcon>
           </IconButton> */}
-          <SignIn />
-        </Dialog>
-      </div>
+        <SignIn />
+      </Dialog>
     </div>
   );
 }

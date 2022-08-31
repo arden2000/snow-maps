@@ -30,8 +30,12 @@ const Navbar = () => {
   };
 
   const navButtons = [
-    ["Home", handleCloseNavMenu],
-    ["Profile", handleCloseNavMenu],
+    [
+      "Home",
+      () => {
+        navigate("/home");
+      },
+    ],
     [
       "Sign Out",
       () => {
