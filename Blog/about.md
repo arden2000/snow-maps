@@ -57,3 +57,84 @@ Once you've set up your local environment, it's time to set up your local backen
 
 Before I continue, I'd like to point out a very cool feature. Amplify offers easy UI development with React through Figma. Figma is a no-code UI/UX development tool that allows you to easily design a website. Figma is traditionally used by a web designer to set up the design of a website and work with clients. Amplify allows you to turn Figma projects into React code. I did not opt for this option as I already knew React and wanted to code the frontend on my own, but nevertheless this is a feature that can speed up development and be useful to many people. You can learn more about it [here](https://docs.amplify.aws/console/uibuilder/figmatocode/).
 
+
+### Map Markers
+
+![map](./images/main_map.png)
+
+The most important component of my website is the interactive map. I was able to get the basic map setup through Amplify Geo, but I had to add features to make it interactive and allow users to upload images to ski resorts. My first step was adding markers at the coordinates of each resort. I was able to do this through the `Marker` component from `react-map-gl`. One issue I quickly ran into was how tedious it was to manually look up each ski resort and enter in all its relevant information. Since I did not want to have to redeploy the entire site every time I wanted to add new locations to the map, I decided to store all the ski resort information in DynamoDB and pull it every time someone entered the site. This allows me to simply add ski resorts as I please while keeping the site up to date with all the newest added resorts. This code snippet queries my `SkiResorts` table and returns all the data for each resort, which is then used to populate the map. 
+
+```
+async function getResortsData() {
+    try {
+        const models = await DataStore.query(SkiResorts);
+        console.log(models);
+        return models
+    }
+    catch (err) { console.log(err) }
+}
+```
+
+### Uploading Content to a Resort
+
+Now that I had markers for ski resorts, I had to add functionality to them. I used a modal (e.g. popup) that would appear every time a user clicked on a specific marker. 
+
+![map popup](./images/map_popup.png)
+
+Inside the modal I added a file upload component that can take multiple files and upload to AWS S3 when the user hits **Submit**. The following code snippet uploads a given file to a certain directory in my project's S3 bucket. 
+
+```
+async function uploadImage(directory, file) {
+    console.log("Uploading " + directory + "/" + file.name)
+    const key = await Storage.put(directory + "/" + file.name, file, {
+        level: 'private',
+        progressCallback(progress) {
+            console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
+        },
+    });
+}
+```
+
+When I was first implemeting this, I thought I would have to use DynamoDB to keep track of which users uploaded which images. This introduced extra problems such as images with the same name, as well as security issues. To my great surprise, S3 made the need for this user:image tracking unnessecary. When an authenticated user uploads a file to S3 at the private level, they get their own directory that only they can access. This solved both the issues I had just mentioned. The only thing left was to track which resort a file was uploaded to. I implemented this by making subdirectories within each user's directory with the name of the resort. 
+
+![user directory](./images/user_s3.png)
+
+### Displaying Uploaded Content
+
+Now that users could upload content in a secure and organized way, I had to implement a method for displaying content when a certain marker is clicked. The following code is used to download a specific file from a user's S3 directory. 
+```
+async function downloadImage(filename) {
+    try {
+        const signedURL = await Storage.get(filename, {
+            level: 'private',
+        });
+        console.log(signedURL)
+        return signedURL
+    }
+    catch (err) { console.log(err) }
+}
+```
+
+Since I want to display all the user's content in a given resort, I had to query all the users file for the resort they clicked on and download them. I do this by utilizing the `Storage.list` function that will list all files for a given user. Furthermore, to only get files for a given resort, I can pass the resort name to `list` and it will only return those specific files. The following code gets a list of all a user's content for the given directory/resort, then downloads them and returns the urls in a dict. I then pass this dict to an `ImageGallery` component which displays them. 
+
+```
+async function getImageURLs(directory) {
+    try {
+        const list = await Storage.list(directory + '/', { level: 'private' }) // for listing ALL files without prefix, pass '' instead
+        console.log(list)
+        const urls = []
+        for (const file of list) {
+            let url = await downloadImage(file.key)
+            urls.push({ url: url, key: file.key })
+        }
+        console.log(urls)
+        return urls
+
+    }
+    catch (err) { console.log(err) }
+}
+```
+
+## Conclusion
+
+There are many more components and features in my web app that I did not cover here as I only wanted to go over the one's essential to the project. Overall, I think Amplify is a great way to setup backend resources and easily allows integration into any JavaScript app. 

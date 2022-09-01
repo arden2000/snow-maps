@@ -28,29 +28,19 @@ function Home() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // backgroundColor: 'primary.dark',
-        // '&:hover': {
-        //   backgroundColor: 'primary.main',
-        //   opacity: [0.9, 0.8, 0.7],
-        // },
+
       }}>
-        <h2>Website Title</h2>
+        <h2>SnowGlobe</h2>
         <Globe />
       </Box>
-      <Box class="HomeBox" sx={{
-        width: 600,
-        height: 600,
-        // backgroundColor: 'primary.dark',
-        // '&:hover': {
-        //   backgroundColor: 'primary.main',
-        //   opacity: [0.9, 0.8, 0.7],
-        // },
+      <Box className="HomeBox2" sx={{
+        width: 400,
+        height: 600
       }}>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <p width='50%'>
+          An interactive map that allows you to upload images and videos to different ski resorts so you can keep all your memories organized! 
         </p>
-        <button onClick={() => setClickSignIn(true)}>Sign In</button>
+        <button onClick={() => setClickSignIn(true)}>Get Started</button>
       </Box>
 
       <Dialog

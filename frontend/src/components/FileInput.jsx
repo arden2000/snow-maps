@@ -10,19 +10,20 @@ import {
 
 import { uploadImage } from "../aws-funcs.js";
 
-function FileInput({directory}) {
+function FileInput({directory, updateImages}) {
   const selectedFiles = [];
 
   const uploadFiles = (files) => {
     for (let i = 0; i < files.length; i++) {
       uploadImage(directory, files[i]);
     }
+    setTimeout(updateImages, 5000)
   };
 
   return (
     <Box fill align="center" justify="start" pad="large">
       <Box width="medium">
-        <Form validate="submit" onSubmit={(event) => {uploadFiles(event.value.fileInput); event.value.fileInput = []}}>
+        <Form validate="submit" onSubmit={(event) => {uploadFiles(event.value.fileInput); event.value.fileInput = [];}}>
           <FormField name="fileInput" htmlFor="fileInput" required>
             <GrommetFileInput
               name="fileInput"

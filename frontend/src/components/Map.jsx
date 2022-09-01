@@ -11,7 +11,7 @@ import { getResortsData } from "../aws-funcs.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import ResortRodal from "./ResortRodal.jsx";
 import { getImageURLs } from "../aws-funcs.js";
-import Upload from "./Upload.jsx";
+import FileInput from "./FileInput.jsx";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -35,6 +35,7 @@ function Map() {
   const [popupInfo, setPopupInfo] = useState(null);
   const [resortInfo, setResortInfo] = useState(null);
   const [images, setImages] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState(false);
 
   if (resortInfo === null || resortInfo === undefined) {
     getResortsData().then((result) => {
@@ -87,7 +88,7 @@ function Map() {
               setPopupInfo(null);
               setImages([]);
             }}
-            maxWidth="md"
+            maxWidth="sm"
             fullWidth={true}
             scroll="paper"
             TransitionComponent={Transition}
@@ -131,7 +132,7 @@ function Map() {
                       <CloseIcon color="white"></CloseIcon>
                     </IconButton>
                 </div>
-                <Upload location={popupInfo.name} />
+                <FileInput directory={popupInfo.name} updateImages={() => handleGetList(popupInfo.name)} />
                 {/* <Button onClick={() => handleGetList(popupInfo.name)}>
                   Show Images
                 </Button> */}
