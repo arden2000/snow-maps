@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { useNavigate } from "react-router-dom";
 import { signOut } from "../aws-funcs.js";
 
@@ -48,7 +48,7 @@ const Navbar = () => {
     <AppBar position="sticky" top={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <AcUnitIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -64,7 +64,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            SnowGlobe
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -103,7 +103,7 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <AcUnitIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -120,7 +120,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            SnowGlobe
           </Typography>
           <Box
             sx={{
