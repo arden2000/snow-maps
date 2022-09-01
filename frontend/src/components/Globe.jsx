@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import { geoOrthographic, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
-import { Feature, FeatureCollection, Geometry } from 'geojson'
 // import './WorldMap.scss'
 import Button from '@mui/material/Button';
 import AnimationFrame from './AnimationFrame.tsx'
